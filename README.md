@@ -31,5 +31,5 @@ StoreGallery::store('gallery', 'gallery/', 25, 'news_id', false, false, true);
 ```
 ```
 for update gallery(old gallery will be delete) use this code:
-StoreGallery::store('gallery', 'gallery/', 25, 'news_id', false, false);
+StoreGallery::update('gallery', 'gallery/', 25, 'news_id', false, false);
 ```
