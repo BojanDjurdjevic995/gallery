@@ -17,9 +17,9 @@ In Controller you must include this package
 ```
 use StoreGallery;
 ```
-In method you use my package like this:
+In method you use my package for store gallery like this:
 ```
-StoreGallery::storeGallery('name-of-input', 'location-to-save-pictures/', 'id-news-for-gallery', 'name-of-column-in-tabl-for-gallery', 'width-for-pictures', 'height-for-pictures', true);
+StoreGallery::storeGallery('name-of-input', 'location-to-save-pictures/', 'id-news-for-gallery', 'name-of-column-in-tabl-for-gallery', 'width-for-pictures', 'height-for-pictures');
 
 width-for-pictures => if you want to scale pictures on any width
 height-for-pictures => if you want to scale pictures on any height
@@ -27,8 +27,9 @@ if you do not enter the height and width of the pictures, they will not change t
 ```
 ```
 If you have added the height and width to the gallery, update the gallery if you do not just put it this way
-StoreGallery::storeGallery('gallery', 'gallery/', 25, 'news_id', false, false, true);
+StoreGallery::store('gallery', 'gallery/', 25, 'news_id', false, false, true);
 ```
 ```
-last parameter mean if you edit exists gallery, and old gallery will be delete
+for update gallery(old gallery will be delete) use this code:
+StoreGallery::store('gallery', 'gallery/', 25, 'news_id', false, false);
 ```
