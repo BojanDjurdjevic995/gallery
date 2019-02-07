@@ -73,6 +73,19 @@ class GalleryFacades extends Facade
             } 
         }
         return true;
-
+    }
+    public static function delete($id, $columnName)
+    {
+        $img = Gallery::where($columnName, '=', $id)->get();
+        $idPic=array();
+        foreach($img as $item)
+        {
+            if(File::exists($item->image))
+            {
+                File::delete($item->image);
+                $item->delete();    
+            }
+        } 
+        return true;
     }
 }
