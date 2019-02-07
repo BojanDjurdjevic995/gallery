@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Facade;
 /**
  * @see \Mews\Purifier
  */
-class Gallery extends Facade
+class GalleryFacades extends Facade
 {
     protected static function getFacadeAccessor()
     {
