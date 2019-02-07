@@ -7,3 +7,9 @@ In Controller you must include this package
 ```
 use StoreGallery;
 ```
+Than you must make model with name "Gallery"
+
+Link this
+```
+php artisan make:model Gallery
+```
