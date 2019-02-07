@@ -1,0 +1,36 @@
+{
+    "name": "baki/gallery",
+    "description": "Store gallery",
+    "type": "library",
+    "authors": [
+        {
+            "name": "Bojan Djurdjevic",
+            "email": "djurdjevicbojan12@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {},
+    "autoload": {
+        "classmap": [
+            "/"
+        ],
+        "psr-4": {
+            "\\": "/src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "\\": "/src"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Baki\\Gallery\\GalleryServiceProvider"
+            ],
+            "aliases": {
+                "Baki": "Baki\\Gallery\\Facades\\Gallery"
+            }
+        }
+    }
+}
