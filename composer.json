@@ -29,7 +29,7 @@
                 "Baki\\Gallery\\GalleryServiceProvider"
             ],
             "aliases": {
-                "Baki": "Baki\\Gallery\\Facades\\Gallery"
+                "StoreGallery": "Baki\\Gallery\\Facades\\Gallery"
             }
         }
     }
