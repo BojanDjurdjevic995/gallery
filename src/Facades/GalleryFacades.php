@@ -16,7 +16,7 @@ class GalleryFacades extends Facade
     {
         return 'StoreGallery';
     }
-    public function storeGallery($picFromInput, $path, $idNews, $edit = false)
+    public static function storeGallery($picFromInput, $path, $idNews, $edit = false)
     {
         if (Input::has($picFromInput)) 
         {
