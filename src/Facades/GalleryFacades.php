@@ -16,7 +16,7 @@ class GalleryFacades extends Facade
     {
         return 'StoreGallery';
     }
-    public static function storeGallery($picFromInput, $path, $idNews, $edit = false)
+    public static function storeGallery($picFromInput, $path, $idNews, $id_news='id_news', $w = false, $h = false, $edit = false)
     {
         if (Input::has($picFromInput)) 
         {
@@ -30,13 +30,13 @@ class GalleryFacades extends Facade
                 {
                     $file_name = time()."-".Str::random(5).'-'.$image->getClientOriginalName();
                     $location  = public_path($path . $file_name);
-                    Image::make($image)->fit(800, 600)->save($location);
-                    $insert[] = ['id_news' => $idNews, 'image' => $path.$file_name];
+                    ($w && $h) ? (Image::make($image)->fit($w, $h)->save($location)) : (Image::make($image)->save($location));
+                    $insert[] = [$id_news => $idNews, 'image' => $path.$file_name];
                 }
             }
             if($edit)
             {
-                $staragalerija = Gallery::where('id_news', '=', $idNews)->get();
+                $staragalerija = Gallery::where($id_news, '=', $idNews)->get();
                 if (!empty($insert)) 
                 {   
                     $idslike=array();
