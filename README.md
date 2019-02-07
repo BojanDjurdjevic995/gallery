@@ -24,7 +24,11 @@ StoreGallery::storeGallery('name-of-input', 'location-to-save-pictures/', 'id-ne
 width-for-pictures => if you want to scale pictures on any width
 height-for-pictures => if you want to scale pictures on any height
 if you do not enter the height and width of the pictures, they will not change the size
-
-
+If you have added the height and width to the gallery, update the gallery if you do not just put it this way
+```
+```
+StoreGallery::storeGallery('gallery', 'gallery/', 25, 'news_id', false, false, true);
+```
+```
 last parameter mean if you edit exists gallery, and old gallery will be delete
 ```
