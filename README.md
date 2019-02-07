@@ -17,3 +17,11 @@ In Controller you must include this package
 ```
 use StoreGallery;
 ```
+In method you use my package like this:
+```
+StoreGallery::storeGallery('name-of-input', 'location-to-save-pictures/', 'id-news-for-gallery', 'name-of-column-in-tabl-for-gallery', 'width-for-pictures', 'height-for-pictures', true);
+
+width-for-pictures => if you want to scale pictures on any width
+height-for-pictures => if you want to scale pictures on any height
+last parameter mean if you edit exists gallery, and old gallery will be delete
+```
