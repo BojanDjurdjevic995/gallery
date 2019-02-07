@@ -1,0 +1,61 @@
+<?php
+namespace Baki\Gallery\Facades;
+
+use File;
+use Image;
+use App\Gallery;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Input; 
+use Illuminate\Support\Facades\Facade;
+/**
+ * @see \Mews\Purifier
+ */
+class Gallery extends Facade
+{
+    protected static function getFacadeAccessor()
+    {
+        return 'StoreGallery';
+    }
+    public function storeGallery($picFromInput, $path, $idNews, $edit = false)
+    {
+        if (Input::has($picFromInput)) 
+        {
+            $gallery = Input::file($picFromInput);
+            $insert = array();
+            $dozvoljeneEkstenzije = ['jpg', 'jpeg', 'png', 'JPG', 'JPEG', 'PNG'];
+            for ($i=0; $i < count($gallery); $i++) 
+            { 
+                $image = $gallery[$i];
+                if ( in_array(File::extension($image->getClientOriginalName()), $dozvoljeneEkstenzije) ) 
+                {
+                    $file_name = time()."-".Str::random(5).'-'.$image->getClientOriginalName();
+                    $location  = public_path($path . $file_name);
+                    Image::make($image)->fit(800, 600)->save($location);
+                    $insert[] = ['id_news' => $idNews, 'image' => $path.$file_name];
+                }
+            }
+            if($edit)
+            {
+                $staragalerija = Gallery::where('id_news', '=', $idNews)->get();
+                if (!empty($insert)) 
+                {   
+                    $idslike=array();
+                    foreach($staragalerija as $slika)
+                    {
+                        if(File::exists($slika->image))
+                        {
+                            $idslike[] = $slika->id;
+                            File::delete($slika->image);
+                        }
+                    }
+                    Gallery::insert($insert);
+                    Gallery::destroy($idslike);
+                }
+            }else{
+                Gallery::insert($insert);
+            }   
+        }
+        return true;
+
+    }
+}
