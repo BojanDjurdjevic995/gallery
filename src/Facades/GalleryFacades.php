@@ -16,7 +16,29 @@ class GalleryFacades extends Facade
     {
         return 'StoreGallery';
     }
-    public static function storeGallery($picFromInput, $path, $idNews, $id_news='id_news', $w = false, $h = false, $edit = false)
+    public static function store($picFromInput, $path, $idNews, $id_news='id_news', $w = false, $h = false)
+    {
+        if (Input::has($picFromInput)) 
+        {
+            $gallery = Input::file($picFromInput);
+            $insert = array();
+            $dozvoljeneEkstenzije = ['jpg', 'jpeg', 'png', 'JPG', 'JPEG', 'PNG'];
+            for ($i=0; $i < count($gallery); $i++) 
+            { 
+                $image = $gallery[$i];
+                if ( in_array(File::extension($image->getClientOriginalName()), $dozvoljeneEkstenzije) ) 
+                {
+                    $file_name = time()."-".Str::random(5).'-'.$image->getClientOriginalName();
+                    $location  = public_path($path . $file_name);
+                    ($w && $h) ? (Image::make($image)->fit($w, $h)->save($location)) : (Image::make($image)->save($location));
+                    $insert[] = [$id_news => $idNews, 'image' => $path.$file_name];
+                }
+            } 
+            Gallery::insert($insert);
+        }
+        return true;
+    }
+    public static function update($picFromInput, $path, $idNews, $id_news='id_news', $w = false, $h = false)
     {
         if (Input::has($picFromInput)) 
         {
@@ -34,26 +56,21 @@ class GalleryFacades extends Facade
                     $insert[] = [$id_news => $idNews, 'image' => $path.$file_name];
                 }
             }
-            if($edit)
-            {
-                $staragalerija = Gallery::where($id_news, '=', $idNews)->get();
-                if (!empty($insert)) 
-                {   
-                    $idslike=array();
-                    foreach($staragalerija as $slika)
+            $staragalerija = Gallery::where($id_news, '=', $idNews)->get();
+            if (!empty($insert)) 
+            {   
+                $idslike=array();
+                foreach($staragalerija as $slika)
+                {
+                    if(File::exists($slika->image))
                     {
-                        if(File::exists($slika->image))
-                        {
-                            $idslike[] = $slika->id;
-                            File::delete($slika->image);
-                        }
+                        $idslike[] = $slika->id;
+                        File::delete($slika->image);
                     }
-                    Gallery::insert($insert);
-                    Gallery::destroy($idslike);
                 }
-            }else{
                 Gallery::insert($insert);
-            }   
+                Gallery::destroy($idslike);
+            } 
         }
         return true;
 
