@@ -25,8 +25,8 @@ width-for-pictures => if you want to scale pictures on any width
 height-for-pictures => if you want to scale pictures on any height
 if you do not enter the height and width of the pictures, they will not change the size
 ```
+Example for store gallery:
 ```
-Example for store gallery
 $news->title = $r->title;
 $news->content = $r->content;
 $news->save();
