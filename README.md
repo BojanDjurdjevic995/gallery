@@ -19,7 +19,7 @@ use StoreGallery;
 ```
 In method you use my package for store gallery like this:
 ```
-StoreGallery::store('name-of-input', 'location-to-save-pictures/', 'id-news-for-gallery', 'name-of-column-in-tabl-for-gallery', 'width-for-pictures', 'height-for-pictures');
+StoreGallery::store('name-of-input', 'location-to-save-pictures/', 'id-news-for-gallery', 'name-of-column-in-gallery-table', 'width-for-pictures', 'height-for-pictures');
 
 width-for-pictures => if you want to scale pictures on any width
 height-for-pictures => if you want to scale pictures on any height
