@@ -41,7 +41,14 @@ public function store(Request $r)
 If you have added the height and width to the gallery, update the gallery if you do not just put it this way
 StoreGallery::update('gallery', 'gallery/', 25, 'news_id');
 ```
+Example for update gallery:
 ```
-for update gallery(old gallery will be delete) use this code:
-StoreGallery::update('gallery', 'gallery/', 25, 'news_id');
+public function update(Request $r, News $news)
+{
+    $news->title = $r->title;
+    $news->content = $r->content;
+    $news->save();
+    StoreGallery::update('gallery', 'gallery/', $news->id, 'news_id'); //Old gallery will be deleted
+    return redirect()->route('news.index');
+}
 ```
