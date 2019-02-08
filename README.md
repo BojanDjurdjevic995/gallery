@@ -27,10 +27,15 @@ if you do not enter the height and width of the pictures, they will not change t
 ```
 Example for store gallery:
 ```
-$news->title = $r->title;
-$news->content = $r->content;
-$news->save();
-StoreGallery::update('gallery', 'gallery/', $news->id, 'news_id');
+public function store(Request $r)
+{
+    $news = new News;
+    $news->title = $r->title;
+    $news->content = $r->content;
+    $news->save();
+    StoreGallery::store('gallery', 'gallery/', $news->id, 'news_id');
+    return redirect()->route('news.index');
+}
 ```
 ```
 If you have added the height and width to the gallery, update the gallery if you do not just put it this way
