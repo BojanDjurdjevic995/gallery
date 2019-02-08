@@ -33,7 +33,7 @@ public function store(Request $r)
     $news->title = $r->title;
     $news->content = $r->content;
     $news->save();
-    StoreGallery::store('gallery', 'gallery/', $news->id, 'news_id');
+    StoreGallery::store('gallery', 'gallery/', $news->id, 'news_id', 800, 600);
     return redirect()->route('news.index');
 }
 ```
