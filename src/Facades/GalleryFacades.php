@@ -16,7 +16,7 @@ class GalleryFacades extends Facade
     {
         return 'StoreGallery';
     }
-    public static function store($picFromInput, $path, $idNews, $id_news='id_news', $w = false, $h = false)
+    public static function store($picFromInput, $path, $idNews, $id_news='id_news', $width = false, $height = false)
     {
         if (Input::has($picFromInput)) 
         {
@@ -28,17 +28,17 @@ class GalleryFacades extends Facade
                 $image = $gallery[$i];
                 if ( in_array(File::extension($image->getClientOriginalName()), $allowedExtensions) ) 
                 {
-                    $file_name = time()."-".Str::random(5).'-'.$image->getClientOriginalName();
-                    $location  = public_path($path . $file_name);
-                    ($w && $h) ? (Image::make($image)->fit($w, $h)->save($location)) : (Image::make($image)->save($location));
-                    $insert[] = [$id_news => $idNews, 'image' => $path.$file_name];
+                    $file_name = time() . "-" . Str::random(5) . '-' . $image->getClientOriginalName();
+                    $location  = public_path($path . '' . $file_name);
+                    ($width && $height) ? (Image::make($image)->fit($width, $height)->save($location)) : (Image::make($image)->save($location));
+                    $insert[] = [$id_news => $idNews, 'image' => $path . '' . $file_name];
                 }
             } 
             Gallery::insert($insert);
         }
         return true;
     }
-    public static function update($picFromInput, $path, $idNews, $id_news='id_news', $w = false, $h = false)
+    public static function update($picFromInput, $path, $idNews, $id_news='id_news', $width = false, $height = false)
     {
         if (Input::has($picFromInput)) 
         {
@@ -50,10 +50,10 @@ class GalleryFacades extends Facade
                 $image = $gallery[$i];
                 if ( in_array(File::extension($image->getClientOriginalName()), $allowedExtensions) ) 
                 {
-                    $file_name = time()."-".Str::random(5).'-'.$image->getClientOriginalName();
-                    $location  = public_path($path . $file_name);
-                    ($w && $h) ? (Image::make($image)->fit($w, $h)->save($location)) : (Image::make($image)->save($location));
-                    $insert[] = [$id_news => $idNews, 'image' => $path.$file_name];
+                    $file_name = time() . "-" . Str::random(5) . '-' . $image->getClientOriginalName();
+                    $location  = public_path($path . '' . $file_name);
+                    ($width && $height) ? (Image::make($image)->fit($width, $height)->save($location)) : (Image::make($image)->save($location));
+                    $insert[] = [$id_news => $idNews, 'image' => $path . '' . $file_name];
                 }
             }
             $oldGallery = Gallery::where($id_news, '=', $idNews)->get();
