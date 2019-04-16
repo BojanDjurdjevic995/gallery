@@ -24,7 +24,7 @@ In method you use my package for store gallery like this:
 ```
 StoreGallery::store('App\YourModel', 'input_name', 'yourDisk', 'id_of_your_post_or_news', 'column_in_database');
 ```
-Example for store gallery:
+# Example for store gallery:
 ```
 public function store(Request $r)
 {
@@ -36,7 +36,7 @@ public function store(Request $r)
     return redirect()->route('news.index');
 }
 ```
-Example for update gallery:
+# Example for update gallery:
 ```
 public function update(Request $r, News $news)
 {
@@ -51,7 +51,7 @@ For delete gallery use this method:
 ```
 StoreGallery::delete('App\YourModel', $id_news_or_post, 'column_in_database', 'yourDisk');
 ```
-Example for delete gallery and news
+# Example for delete gallery and news
 ```
 public function destroy(News $news)
 {
