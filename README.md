@@ -22,23 +22,19 @@ After that, you must create your disk in config/filesystems.php
 ```
 In method you use my package for store gallery like this:
 ```
-StoreGallery::store('App\YourModel', 'input_name', 'storageDisk', 'id_of_your_post_or_news', 'column_in_database');
+StoreGallery::store('App\YourModel', 'input_name', 'yourDisk', 'id_of_your_post_or_news', 'column_in_database');
 ```
 Example for store gallery:
 ```
 public function store(Request $r)
 {
-    $news = new News;
-    $news->title = $r->title;
-    $news->content = $r->content;
+    $news               = new News;
+    $news->title        = strip_tags($r->title);
+    $news->content      = strip_tags($r->content);
     $news->save();
-    StoreGallery::store('gallery', 'gallery/', $news->id, 'news_id', 800, 600);
+    StoreGallery::store('App\Gallery', 'gallery', 'galleryNews',  $input->id, 'id_news');
     return redirect()->route('news.index');
 }
-```
-```
-If you have added the height and width to the gallery, update the gallery if you do not just put it this way
-StoreGallery::update('gallery', 'gallery/', 25, 'news_id');
 ```
 Example for update gallery:
 ```
@@ -47,7 +43,21 @@ public function update(Request $r, News $news)
     $news->title = $r->title;
     $news->content = $r->content;
     $news->save();
-    StoreGallery::update('gallery', 'gallery/', $news->id, 'news_id'); //Old gallery will be deleted
+    StoreGallery::store('App\Gallery', 'gallery', 'galleryNews',  $news->id, 'id_news', true); // Old gallery will be deleted
+    return redirect()->route('news.index');
+}
+```
+For delete gallery use this method:
+```
+StoreGallery::delete('App\YourModel', $id_news_or_post, 'column_in_database', 'yourDisk');
+```
+Example for delete gallery and news
+```
+public function destroy(News $news)
+{
+    StoreGallery::delete('App\Gallery', $news->id, 'id_news', 'galleryNews');
+    $news->delete();
+
     return redirect()->route('news.index');
 }
 ```
