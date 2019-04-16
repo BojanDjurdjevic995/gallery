@@ -20,6 +20,19 @@ After that, you must create your disk in config/filesystems.php
             'visibility' => 'public',
         ],
 ```
+In your table you must have column 'image' and column for your id of news or post.
+Like this:
+```
+public function up()
+{
+    Schema::create('galleries', function (Blueprint $table) {
+        $table->increments('id');
+        $table->unsignedInteger('id_news'); // In my case this ti foreign key from table news. This is ID of my news
+        $table->string('image')->nullable();
+        $table->timestamps();
+    });
+}
+```
 In method you use my package for store gallery like this:
 ```
 StoreGallery::store('App\YourModel', 'input_name', 'yourDisk', 'id_of_your_post_or_news', 'column_in_database');
