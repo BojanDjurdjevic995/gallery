@@ -1,5 +1,5 @@
 # Instruction
-For this package you must install Image package
+For this package you must install Intervention Image package
 ```
 composer require intervention/image
 ```
