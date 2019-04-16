@@ -1,13 +1,13 @@
 <?php
 namespace Baki\Gallery\Facades;
 
+use File;
 use Image;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Input; 
 use Illuminate\Support\Facades\Facade;
-/**
- * @see \Mews\Purifier
- */
+use Illuminate\Support\Facades\Storage;
+
 class GalleryFacades extends Facade
 {
     protected static function getFacadeAccessor()
