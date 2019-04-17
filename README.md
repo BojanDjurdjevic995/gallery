@@ -1,17 +1,17 @@
 # Instruction
-For this package you must install Intervention Image package
+Before installing this package, install Intervention Image
 ```
 composer require intervention/image
 ```
-Than install my package with this command
+Require this package with composer:
 ```
 composer require baki/gallery
 ```
-In Controller you must include this package
+To use gallery package, use this in your controller
 ```
 use StoreGallery;
 ```
-After that, you must create your disk in config/filesystems.php
+After that, create your disk in config/filesystems.php
 ```
 'yourDisk' => [
             'driver' => 'local',
@@ -27,7 +27,7 @@ public function up()
 {
     Schema::create('galleries', function (Blueprint $table) {
         $table->increments('id');
-        $table->unsignedInteger('id_news'); // In my case this ti foreign key from table news. This is ID of my news
+        $table->unsignedInteger('id_news'); // In my case this is foreign key from table news. This is ID of my news
         $table->string('image')->nullable();
         $table->timestamps();
     });
@@ -60,7 +60,7 @@ public function update(Request $r, News $news)
     return redirect()->route('news.index');
 }
 ```
-For delete gallery use this method:
+For delete gallery use this code:
 ```
 StoreGallery::delete('App\YourModel', $id_news_or_post, 'column_in_database', 'yourDisk');
 ```
