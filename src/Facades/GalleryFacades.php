@@ -14,7 +14,7 @@ class GalleryFacades extends Facade
     {
         return 'StoreGallery';
     }
-    public static function store($class, $input_name, $storage_disk, $id, $column, $edit = false)
+    public static function store($class, $input_name, $storage_disk, $id, $column, $edit = false, $width = false, $height = false)
     {
         if (Input::has($input_name)) 
         {
@@ -27,7 +27,7 @@ class GalleryFacades extends Facade
                 if ( in_array(File::extension($image->getClientOriginalName()), $allowedExtensions) ) 
                 {
                     $file_name = 'gallery-' . time() . "-" . strtolower(Str::random(5)) . '-' . $image->getClientOriginalName();
-                    $makeImage = Image::make($image);
+                    $makeImage = ($width && $height) ? Image::make($image)->fit($width, $height) : Image::make($image);
                     $path = Storage::disk($storage_disk)->path($file_name);
                     Storage::disk($storage_disk)->put($file_name, $makeImage->save($path));
                     $insert[] = [$column => $id, 'image' => $file_name];
