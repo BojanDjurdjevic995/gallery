@@ -35,7 +35,7 @@ public function up()
 ```
 In method you use my package for store gallery like this:
 ```
-StoreGallery::store('App\YourModel', 'input_name', 'yourDisk', 'id_of_your_post_or_news', 'column_in_database');
+StoreGallery::store('App\YourModel', 'input_name', 'yourDisk', 'id_of_your_post_or_news', 'column_in_database', false, width, height);
 ```
 # Example for store gallery:
 ```
@@ -45,7 +45,13 @@ public function store(Request $r)
     $news->title        = strip_tags($r->title);
     $news->content      = strip_tags($r->content);
     $news->save();
-    StoreGallery::store('App\Gallery', 'gallery', 'galleryNews',  $input->id, 'id_news');
+    
+    // It is without crop image
+    StoreGallery::store('App\Gallery', 'gallery', 'galleryNews',  $input->id, 'id_news', false);
+    
+    // It is with crop image
+    StoreGallery::store('App\Gallery', 'gallery', 'galleryNews',  $input->id, 'id_news', false, 840, 420);
+    
     return redirect()->route('news.index');
 }
 ```
@@ -56,7 +62,13 @@ public function update(Request $r, News $news)
     $news->title = $r->title;
     $news->content = $r->content;
     $news->save();
-    StoreGallery::store('App\Gallery', 'gallery', 'galleryNews',  $news->id, 'id_news', true); // Old gallery will be deleted
+    
+    // It is without crop image
+    StoreGallery::store('App\Gallery', 'gallery', 'galleryNews',  $input->id, 'id_news', true); // Old gallery will be deleted
+    
+    // It is with crop image
+    StoreGallery::store('App\Gallery', 'gallery', 'galleryNews',  $input->id, 'id_news', true, 840, 420); // Old gallery will be deleted
+
     return redirect()->route('news.index');
 }
 ```
