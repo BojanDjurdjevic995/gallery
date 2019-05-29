@@ -47,7 +47,7 @@ public function store(Request $r)
     $news->save();
     
     // It is without crop image
-    StoreGallery::store('App\Gallery', 'gallery', 'galleryNews',  $input->id, 'id_news', false);
+    StoreGallery::store('App\Gallery', 'gallery', 'galleryNews',  $input->id, 'id_news');
     
     // It is with crop image
     StoreGallery::store('App\Gallery', 'gallery', 'galleryNews',  $input->id, 'id_news', false, 840, 420);
