@@ -21,6 +21,7 @@ class GalleryServiceProvider extends ServiceProvider
     {
         //
     }
+
     public function provides()
     {
         return ['StoreGallery'];
