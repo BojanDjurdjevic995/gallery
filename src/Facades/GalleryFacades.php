@@ -2,7 +2,8 @@
 namespace Baki\Gallery\Facades;
 
 use Image;
-use Illuminate\Support\Facades\Input; 
+use Illuminate\Support\Str;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Facade;
 use Illuminate\Support\Facades\Storage;
 
@@ -13,17 +14,17 @@ class GalleryFacades extends Facade
         return 'StoreGallery';
     }
 
-    public static function store($class, $input_name, $storage_disk, $id, $column, $edit = false, $width = false, $height = false)
+    public static function store($class, $input_name, $storage_disk, Request $request, $id, $column, $edit = false, $width = false, $height = false)
     {
-        if (Input::has($input_name)) 
+        if ($request->has($input_name))
         {
-            $gallery = Input::file($input_name);
+            $gallery = $request->file($input_name);
             $insert  = array();
             $allowedExtensions = ['jpg', 'jpeg', 'png'];
             foreach ($gallery as $item)
                 if ( in_array($item->getClientOriginalExtension(), $allowedExtensions) )
                 {
-                    $file_name  = 'gallery-' . time() . "-" . strtolower(str_random(10)) . '-' . $item->getClientOriginalName();
+                    $file_name  = 'gallery-' . time() . "-" . strtolower(Str::random(10)) . '-' . $item->getClientOriginalName();
                     $makeImage  = ($width && $height) ? Image::make($item)->fit($width, $height) : Image::make($item);
                     $path       = Storage::disk($storage_disk)->path($file_name);
                     Storage::disk($storage_disk)->put($file_name, $makeImage->save($path));
