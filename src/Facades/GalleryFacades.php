@@ -60,8 +60,11 @@ class GalleryFacades extends Facade
     {
         $images = $class::where($columnName, '=', $id)->get();
         foreach($images as $item)
+        {
             if(Storage::disk($storage_disk)->exists($item->image))
                 Storage::disk($storage_disk)->delete($item->image);
+            $item->delete();
+        }
 
         return true;
     }
